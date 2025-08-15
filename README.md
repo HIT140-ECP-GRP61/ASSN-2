@@ -4,41 +4,29 @@ Objective 1: Investigation A
 (Bat vs. Rat)
 
 
-Group Members
-Name
-Student ID
-Role/Contribution
-GitHub Username
-Alice Li
-s394431
+## Group Members
+
+|Name
+|Student ID
+|Role/Contribution
+|GitHub Username|
+|-|-|-|-|
+|Alice Li|s394431||@Raini-impression|
+|Duong Quy Vu|||@duogvuu|
+
+|Susmita Aryal|||@Aalia259|
 
 
-@Raini-impression
-[Name]
-[Insert ID]
-
-
-@duogvuu
-[Name]
-[Insert ID]
-
-
-@Aalia259
-[Name]
-[Insert ID]
-
-
-@s303126
-
+|Jack David Manning|||@s303126|
 
 
 ## 🔗 Project Resources
-OneDrive Folder: https://charlesdarwinuni-my.sharepoint.com/:t:/g/personal/s394431_students_cdu_edu_au/Ecfa5fhbMm5NglQXBTJ1yUAB4QxseoSr1TJThPUD0B1JJQ?e=aUtfdA
+OneDrive Folder: 
 GitHub Repo: https://github.com/HIT140-ECP-GRP61/ASSN-2
 Presentation slides: https://docs.google.com/presentation/d/1_5j1Vq2DnjHZGxWZyJWzALwk8GTSu_aSfm_RBrfqkAA/edit?usp=sharing
 A recorded group presentation youtube link: 
-Meeting Minutes (unit code) (group number) date:Meeting Minutes
-Other notes: [screenshots of Teams, github contribution history, etc. If you’re that organized]
+Meeting Minutes (unit code) (group number) date
+Other notes: [screenshots of Teams, github contribution history]
 
 
 ## 🗒️ How We Collaborated
@@ -93,7 +81,7 @@ Screenshots:
 Google Docs version history 
 GitHub contribution graph
 Full code snippets (see GitHub for latest)
-Extra figures or analysis (if you got extra nerdy)
+Extra figures or analysis
 
 
 [End of Template]
