@@ -31,6 +31,25 @@ PRs & commits show individual contributions
 Slides (Google Slides): Linked above, each section labeled by contributor
 OneDrive: Sharing documents
 
+## Data analysis
+Hypothesis 1: Avoidance via Delay in Approaching Food
+Variables:
+   seconds_after_rat_arrival — split into short vs long delay (e.g., below/above median)
+    test: compare bat_landing_to_food (how much they hesitate after landing)
+Hypotheses :
+     H0: Bats take equally long to approach food regardless of how soon they land after rats arrive.
+    H1: Bats take longer to approach food when they land soon after rat arrival ( vigilance). Hypothesis 2:  Rat Presence Reduces Bat Traffic
+
+Hypothesis 2: Rat Presence Reduces Bat Traffic
+Variables:
+test:
+     High vs. Low rat_minutes
+Compare:
+    bat_landing_number
+Hypotheses:
+    H0: Rats being around doesn't affect how many bats come.
+    H1: Bats land less often when rats dominate the platform. 
+
 
 ##  Transcript for Slides / PPT
 Use this template as your spoken script—edit for your slides!
