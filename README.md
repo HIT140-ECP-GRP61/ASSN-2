@@ -32,6 +32,7 @@ Slides (Google Slides): Linked above, each section labeled by contributor
 OneDrive: Sharing documents
 
 ## Data analysis
+First calculate with 95% CI the mean bat_landing_to_food and bat_landing_number is what
 Hypothesis 1: Avoidance via Delay in Approaching Food
 Variables:
    seconds_after_rat_arrival — split into short vs long delay (e.g., below/above median)
