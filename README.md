@@ -38,7 +38,7 @@ Variables:
     test: compare bat_landing_to_food (how much they hesitate after landing)
 Hypotheses :
      H0: Bats take equally long to approach food regardless of how soon they land after rats arrive.
-    H1: Bats take longer to approach food when they land soon after rat arrival ( vigilance). Hypothesis 2:  Rat Presence Reduces Bat Traffic
+    H1: Bats take longer to approach food when they land soon after rat arrival ( vigilance).
 
 Hypothesis 2: Rat Presence Reduces Bat Traffic
 Variables:
