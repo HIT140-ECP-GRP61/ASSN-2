@@ -38,13 +38,16 @@ OneDrive: Sharing documents<br />
 
 ## Data analysis
 First calculate with 95% CI the mean bat_landing_to_food and bat_landing_number is what<br />
-Hypothesis 1: Avoidance via Delay in Approaching Food<br />
+Hypothesis 1: Avoidance divided by risky/avoidant bats
+<br />
 Variables:<br />
-   seconds_after_rat_arrival — split into short vs long delay (e.g., below/above median)<br />
-    test: compare bat_landing_to_food (how much they hesitate after landing)<br />
+   risk — split into risky/avoidant bats
+   <br />
+    test: compare bat_landing_to_food (how much they hesitate after landing)
+    <br />
 Hypotheses :<br />
-     H0: Bats take equally long to approach food regardless of how soon they land after rats arrive.<br />
-    H1: Bats take longer to approach food when they land soon after rat arrival ( vigilance).<br />
+     H0: Risky bats and avoidant bats take equally long to approach food.<br />
+    H1: Risky and avoidant bats take different time to approach food when they land soon after rat arrival ( vigilance).<br />
 
 Hypothesis 2: Rat Presence Reduces Bat Traffic<br />
 Variables:<br />
