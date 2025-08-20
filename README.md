@@ -49,7 +49,29 @@ Hypotheses :<br />
      H0: Risky bats and avoidant bats take equally long to approach food.<br />
     H1: Risky and avoidant bats take different time to approach food when they land soon after rat arrival ( vigilance).<br />
 
-Hypothesis 2: Rat Presence Reduces Bat Traffic<br />
+   Hypothesis 2: Do bats behave different whether rats are present?<br />
+Variables:<br />
+test:<br />
+     whether rats are present on platform when bats start eating<br />
+Compare:<br />
+    bat_landing_to_food (how much they hesitate after landing)
+    <br />
+Hypotheses:<br />
+    H0: The mean hesitation time is the same whether rats are present or not when the bat approaches the food.<br />
+    H1: The mean hesitation time is different whether rats are present or not when the bat approaches the food. <br />
+
+   Hypothesis 3: Do bats wait longer before eating when rats have left the platform?<br />
+Variables:<br />
+test:<br />
+     whether rats are present on platform when bats start eating<br />
+Compare:<br />
+    bat_landing_to_food (how much they hesitate after landing)
+    <br />
+Hypotheses:<br />
+    H0: bats wait the same before eating when rats have left the platform<br />
+    H1: bats wait longer before eating when rats have left the platform <br />
+    
+Hypothesis 4: Rat Presence Reduces Bat Traffic<br />
 Variables:<br />
 test:<br />
      High vs. Low rat_minutes<br />
