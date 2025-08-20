@@ -70,8 +70,20 @@ Compare:<br />
 Hypotheses:<br />
     H0: bats wait the same before eating when rats have left the platform<br />
     H1: bats wait longer before eating when rats have left the platform <br />
+
+  Hypothesis 4: Does foraging success (reward = 1) differ based on rat presence at feeding time, separately for risky and avoidant bats?<br />
+Variables:<br />
+divide risky/avoidant bats and test each group reward rate
+test:<br />
+     whether rats are present on platform when bats start eating<br />
+Compare:<br />
+    reward rate
+    <br />
+Hypotheses:<br />
+    H0: Rats being around doesn't affect reward rates for risky/avoidant bats.<br />
+    H1: Rats being around affect reward rates for risky/avoidant bats. <br />
     
-Hypothesis 4: Rat Presence Reduces Bat Traffic<br />
+Hypothesis 5: Rat Presence Reduces Bat Traffic<br />
 Variables:<br />
 test:<br />
      High vs. Low rat_minutes<br />
