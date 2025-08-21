@@ -9,7 +9,7 @@ Objective 1: Investigation A
 | Name | Student ID | Role/Contribution| GitHub Username|
 |-|-|-|-|
 |Alice Li |s394431| |@Raini-impression |
-|Duong Quy Vu| | |@duogvuu|
+|Duong Quy Vu|s388965| |@duogvuu|
 |Susmita Aryal|||@Aalia259|
 |Jack David Manning|||@s303126|
 
