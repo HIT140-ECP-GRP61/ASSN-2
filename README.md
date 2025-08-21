@@ -10,8 +10,8 @@ Objective 1: Investigation A
 |-|-|-|-|
 |Alice Li |s394431| |@Raini-impression |
 |Duong Quy Vu|s388965| |@duogvuu|
-|Susmita Aryal|||@Aalia259|
-|Jack David Manning|||@s303126|
+|Susmita Aryal|S388252||@Aalia259|
+|Jack David Manning|S303126||@s303126|
 
 ## Work flow
 Data cleaning -> Establish Hypothesis -> Data analysis -> Data Visualization and presentation
