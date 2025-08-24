@@ -60,16 +60,21 @@ Hypotheses:<br />
     H0: The mean hesitation time is the same whether rats are present or not when the bat approaches the food.<br />
     H1: The mean hesitation time is different whether rats are present or not when the bat approaches the food. <br />
 
-   Hypothesis 3: Do bats wait longer before eating when rats have left the platform?<br />
+   Hypothesis 3: Do bats hesitate more when rats just arrived?<br />
 Variables:<br />
 test:<br />
-     whether rats are present on platform when bats start eating<br />
+ Group A (high threat): Bats that landed within median seconds of rat arrival<br />
+ Group B (low threat): Bats that landed after median seconds <br />
+
 Compare:<br />
-    bat_landing_to_food (how much they hesitate after landing)
-    <br />
+
+bat_landing_to_food (hesitation time)<br />
+
 Hypotheses:<br />
-    H0: bats wait the same before eating when rats have left the platform<br />
-    H1: bats wait longer before eating when rats have left the platform <br />
+
+H₀ (null): There is no difference in mean hesitation between early/late landers after rat arrival<br />
+
+H₁ (alt): Bats that land soon after rats arrive hesitate longer (↑ bat_landing_to_food)<br />
 
   Hypothesis 4: Does foraging success (reward = 1) differ based on rat presence at feeding time, separately for risky and avoidant bats?<br />
 Variables:<br />
