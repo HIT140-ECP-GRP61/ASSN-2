@@ -16,6 +16,9 @@ Hypotheses:<br />
     H0: The mean hesitation time is the same whether rats are present or not when the bat approaches the food.<br />
     H1: The mean hesitation time is different whether rats are present or not when the bat approaches the food. <br />
 '''
+df['bat_landing_to_food'] = pd.to_numeric(df['bat_landing_to_food'], errors='coerce')
+df['start_time'] = pd.to_datetime(df['start_time'], errors='coerce')
+
 df['feeding_time'] = df['start_time'] + pd.to_timedelta(df['bat_landing_to_food'], unit='s')
 df['rat_absent_at_feeding'] = (
     (df['feeding_time'] < df['rat_period_start']) |
