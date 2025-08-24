@@ -23,7 +23,6 @@ median = df['seconds_after_rat_arrival'].median()
 df['near'] = df['seconds_after_rat_arrival'] <= median
 df['not_near'] = df['seconds_after_rat_arrival'] > median
 
-# Extract hesitation times
 near = df[df['near']]['bat_landing_to_food']
 not_near = df[df['not_near']]['bat_landing_to_food']
 
