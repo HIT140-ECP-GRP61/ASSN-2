@@ -8,8 +8,9 @@ __pycache__/
 # Ignore Anaconda/conda environment folders
 env/
 assn2/
-.conda/
-.venv/
+*.conda/
+*.venv/
+*.bin/
 venv/
 __pycache__/
 *.pyc
