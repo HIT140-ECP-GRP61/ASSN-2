@@ -5,7 +5,20 @@ __pycache__/
 
 # C extensions
 *.so
-
+# Ignore Anaconda/conda environment folders
+env/
+assn2/
+.conda/
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.ipynb_checkpoints
+.DS_Store
+*.egg-info/
 # Distribution / packaging
 .Python
 build/
