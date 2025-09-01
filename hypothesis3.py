@@ -1,9 +1,28 @@
 import pandas as pd
 from scipy.stats import ttest_ind
 
-df = pd.read_csv('dataset1.csv')
+df = pd.read_csv('cleaned_dataset1.csv')
 
-#TODO:clean data
+df['rat_presence_duration'] = 'unknown'
+# Assign categories based on 'seconds_after_rat_arrival'
+df.loc[df['seconds_after_rat_arrival'] <= 60, 'rat_presence_duration'] = 'short'
+df.loc[(df['seconds_after_rat_arrival'] > 60) & (df['seconds_after_rat_arrival'] <= 180), 'rat_presence_duration'] = 'medium'
+df.loc[df['seconds_after_rat_arrival'] > 180, 'rat_presence_duration'] = 'long'
+
+short_group = df[df['rat_presence_duration'] == 'short']
+medium_group = df[df['rat_presence_duration'] == 'medium']
+long_group = df[df['rat_presence_duration'] == 'long']
+
+short_mean = short_group['bat_landing_to_food'].mean()
+medium_mean = medium_group['bat_landing_to_food'].mean()
+long_mean = long_group['bat_landing_to_food'].mean()
+
+short_mean = short_group['bat_landing_to_food'].std(ddof=1)
+medium_mean = medium_group['bat_landing_to_food'].std(ddof=1)
+long_mean = long_group['bat_landing_to_food'].std(ddof=1)
+
+print(df['rat_presence_duration'])
+
 '''
 Hypothesis 3: Do bats hesitate more when rats just arrived?<br />
 Variables:<br />
