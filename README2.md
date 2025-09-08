@@ -38,9 +38,7 @@ OneDrive: Sharing documents<br />
 
 ## Data analysis
 As convenience we only show dataset 1 bat_landing_to_food for CLT , <br />
-Because data sample is large enough(~1000) but still skewed after we look at histogram we use bootstrap method to simulate large amount of resampling and it ends with normal distribution and z-scores/ CI etc
 
-First calculate with 95% CI the mean bat_landing_to_food and bat_landing_number is what<br />
 Hypothesis 1: Avoidance divided by risky/avoidant bats
 <br />
 Variables:<br />
