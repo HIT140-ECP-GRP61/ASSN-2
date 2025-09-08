@@ -1,9 +1,34 @@
 import pandas as pd
 from scipy.stats import ttest_ind
+import matplotlib.pyplot as plt
 
-df = pd.read_csv('dataset1.csv')
+df = pd.read_csv('cleaned_dataset1.csv')
 
-#TODO:clean data
+avoidant_bat = df[df['risk'] == 0]
+risky_bat = df[df['risk'] == 1]
+
+reward_risky = risky_bat['reward']
+reward_avoidant = avoidant_bat['reward']
+
+# 4x higher reward rate for avoidant bats
+print(reward_risky.value_counts(), reward_avoidant.value_counts())
+
+mean_risky = reward_risky.mean()
+median_risky = reward_risky.median()
+standard_deviation_risky = reward_risky.std(ddof=1)
+
+mean_avoidant = reward_avoidant.mean()
+median_avoidant = reward_avoidant.median()
+standard_deviation_avoidant = reward_avoidant.std(ddof=1)
+
+#TODO proportion?
+plt.hist(reward_risky, bins=1, alpha=0.6, label='Risky Reward Bats', color='red', edgecolor='black')
+plt.hist(reward_avoidant, bins=1, alpha=0.6, label='Avoidant Reward Bats', color='green', edgecolor='black')
+plt.title('Foraging Reward For Risky and Avoidant Bats')
+plt.xlabel('Reward')
+plt.ylabel('Frequency')
+plt.show()
+
 '''
 Hypothesis 4: Does foraging success (reward = 1) differ based on rat presence at feeding time, separately for risky and avoidant bats?<br />
 Variables:<br />
