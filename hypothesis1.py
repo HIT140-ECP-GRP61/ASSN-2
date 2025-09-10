@@ -1,9 +1,4 @@
 import pandas as pd
-from scipy.stats import ttest_ind
-
-df = pd.read_csv('cleaned_dataset1.csv')
-
-import pandas as pd
 import scipy as st
 from scipy.stats import ttest_ind
 import statistics as stats
@@ -16,15 +11,36 @@ df = pd.read_csv('cleaned_dataset1.csv')
 # central tendency
 bat_landing_to_food = df["bat_landing_to_food"]
 
-mean_landing = stats.mean(bat_landing_to_food) # average time the bat took to go for food
-median_landing = stats.median(bat_landing_to_food) # skewness
+mean_landing = stats.mean(bat_landing_to_food) 
+median_landing = stats.median(bat_landing_to_food) 
 sample_size_landing = bat_landing_to_food.size
-variance_landing = bat_landing_to_food.var(ddof=1) # ddof is the degrees of freedom calculation (sample size - 1)
+variance_landing = bat_landing_to_food.var(ddof=1) 
 standard_deviation_landing = bat_landing_to_food.std(ddof=1)
+
 
 # Compare risk boolean value to corresponding bat seconds
 avoidance_times = df.loc[df['risk'] == 0, 'bat_landing_to_food']
 risk_times = df.loc[df['risk'] == 1, 'bat_landing_to_food']
+
+# Histogram(s)
+max_val = avoidance_times.max()
+min_val = avoidance_times.min()
+the_range = max_val - min_val
+bin_width = 5
+bin_count= int(the_range/bin_width)
+
+r_max_val = avoidance_times.max()
+r_min_val = avoidance_times.min()
+r_the_range = r_max_val - r_min_val
+
+r_bin_count= int(r_the_range/bin_width)
+
+plt.hist(avoidance_times, color='red', edgecolor='black', bins=bin_count, alpha=0.6)
+plt.hist(risk_times, color='green', edgecolor='black', bins=r_bin_count, alpha=0.6)
+plt.title("Histogram of Avoidance (Green) and Risky Bats (Red)")
+plt.xlabel("Avoidance/Risk time (sec)")
+plt.ylabel("Frequency")
+plt.show()
 
 avoidance_mean = stats.mean(avoidance_times)
 risk_mean = stats.mean(risk_times)
@@ -34,25 +50,25 @@ risk_variance = risk_times.var(ddof=1)
 risk_standard_deviation = risk_times.std(ddof=1)
 
 print("Avoidance/Risk Mean: ", avoidance_mean, risk_mean)
-print("Avoidance/Risk Standard Deviation: ", avoidance_standard_deviation, risk_standard_deviation)
+print("Avoidance/Risk Median: ", stats.median(avoidance_times), stats.median(risk_times))
 
+# Calculate Q1 and Q3
+Q1 = np.percentile(avoidance_times, 25)
+Q3 = np.percentile(avoidance_times, 75)
+# Calculate IQR
+IQR = Q3 - Q1
+# Calculate the 1.5 * IQR factor
+iqr_factor = 1.5 * IQR
+# Calculate lower and upper bounds
+lower_bound = max(0, Q1 - iqr_factor)  # Time can't be negative
+upper_bound = Q3 + iqr_factor
+print("IQR: ", IQR, iqr_factor, lower_bound, upper_bound)
 
-# IQR (detecting outliers?) #TODO IQR for the risk/avoidance
-percentile25th = np.percentile(bat_landing_to_food, 25)
-percentile75th = np.percentile(bat_landing_to_food, 75)
-
-avoidance_iqr = percentile75th - percentile25th
-
-a_val = 1.5 * avoidance_iqr
-print(percentile25th, "75th ", percentile75th, avoidance_iqr, a_val)
-aQ1 = percentile25th - a_val # producing a negative value from the extreme low values (0.0000001), resort to using 0?
-aQ3 = percentile75th + a_val
-
-print("IQR: ", aQ1, aQ3)
-
-filtered_df = df[df['bat_landing_to_food'] > aQ3]
-filtered_low = df[df['bat_landing_to_food'] < 1.0]
-print(filtered_df["bat_landing_to_food"], filtered_low["bat_landing_to_food"])
+filtered_lower = avoidance_times[avoidance_times <= 0]
+filtered_upper = avoidance_times[avoidance_times >= 13.5]
+filtered = avoidance_times[(avoidance_times >= lower_bound) & (avoidance_times <= upper_bound)]
+print(len(filtered))
+print("times ", len(filtered_lower), len(filtered_upper))
 
 # Histogram(s)
 max_val = avoidance_times.max()
