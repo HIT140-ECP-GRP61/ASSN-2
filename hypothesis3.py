@@ -5,35 +5,13 @@ import numpy as np
 
 df = pd.read_csv('cleaned_dataset1.csv')
 
-df['rat_presence_duration'] = 'unknown'
-# Assign categories based on 'seconds_after_rat_arrival'
-df.loc[df['seconds_after_rat_arrival'] <= 60, 'rat_presence_duration'] = 'short'
-df.loc[(df['seconds_after_rat_arrival'] > 60) & (df['seconds_after_rat_arrival'] <= 180), 'rat_presence_duration'] = 'medium'
-df.loc[df['seconds_after_rat_arrival'] > 180, 'rat_presence_duration'] = 'long'
-
-short_group = df[df['rat_presence_duration'] == 'short']
-medium_group = df[df['rat_presence_duration'] == 'medium']
-long_group = df[df['rat_presence_duration'] == 'long']
-
-short_mean = short_group['bat_landing_to_food'].mean()
-medium_mean = medium_group['bat_landing_to_food'].mean()
-long_mean = long_group['bat_landing_to_food'].mean()
-
-short_mean = short_group['bat_landing_to_food'].std(ddof=1)
-medium_mean = medium_group['bat_landing_to_food'].std(ddof=1)
-long_mean = long_group['bat_landing_to_food'].std(ddof=1)
-
-print(df['rat_presence_duration'])
-
-
-
 median_time = df['seconds_after_rat_arrival'].median()
 df['group'] = df['seconds_after_rat_arrival'] < median_time
 early_group = df.loc[df['group'], 'bat_landing_to_food']
 late_group = df.loc[~df['group'], 'bat_landing_to_food']
 
-print("early: ", early_group.describe())
-print("late: ", late_group.describe())
+print("Early: ", early_group.describe())
+print("Late: ", late_group.describe())
 
 mean_early = early_group.mean()
 median_early = early_group.median()
@@ -45,20 +23,21 @@ standard_deviation_late = late_group.std(ddof=1)
 
 
 # IQR (detecting outliers?) #TODO late group IQR
-percentile25th = np.percentile(early_group, 25)
-percentile75th = np.percentile(early_group, 75)
+Q1 = np.percentile(early_group, 25)
+Q3 = np.percentile(early_group, 75)
 
-early_iqr = percentile75th - percentile25th
+IQR = Q3 - Q1
 
-a_val = 1.5 * early_iqr
-print(percentile25th, "75th ", percentile75th, early_iqr, a_val)
-aQ1 = percentile25th - a_val 
-aQ3 = percentile75th + a_val
+a_val = 1.5 * IQR
+print(Q1, "75th ", Q3, IQR, a_val)
+lower_bound = Q1 - a_val 
+upper_bound = Q3 + a_val
 
-print("Q1: ", aQ1, " Q3: ", aQ3)
+print(lower_bound, upper_bound)
 
+filtered = early_group[early_group <= upper_bound]
 
-#TODO histograms
+#histograms
 max_val_early = early_group.max()
 min_val_early = early_group.min()
 the_range_early = max_val_early - min_val_early
@@ -72,7 +51,7 @@ bin_count= int(the_range_late/bin_width)
 
 plt.hist(early_group, bins=bin_count_early, alpha=0.6, label='Early Arrival Bats', color='red', edgecolor='black')
 plt.hist(late_group, bins=bin_count, alpha=0.6, label='Late Arrival Bats', color='green', edgecolor='black')
-plt.title('Hesitation Time Based on Rat Arrival')
+plt.title('Bat Hesitation Time Based on Rat Arrival (Early=Red Late=Green)')
 plt.xlabel('Time (seconds)')
 plt.ylabel('Frequency')
 plt.show()
