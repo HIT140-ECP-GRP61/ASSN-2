@@ -15,30 +15,30 @@ rats_present_group = df[df['rats_present'] == True]['bat_landing_to_food']
 rats_absent_group = df[df['rats_present'] == False]['bat_landing_to_food']
 
 # continue with knowing there are 0 absent, use present rats only
-print(rats_present_group, "abnsent: ", rats_absent_group)
 
-print(rats_present_group.mean())
-print(rats_absent_group.mean()) # NaN
+print("Rats present Mean: ", rats_present_group.mean())
+print("Rats absent Mean: ", rats_absent_group.mean()) # NaN
 
+print("Rats present: ", rats_present_group.describe())
+print("Rats absent: ", rats_absent_group.describe())
 mean = rats_present_group.mean()
 median = rats_present_group.median()
 
 standard_deviation = rats_present_group.std(ddof=1)
 
-# IQR (detecting outliers?) only present group
-percentile25th = np.percentile(rats_present_group, 25)
-percentile75th = np.percentile(rats_present_group, 75)
+# Calculate Q1 and Q3
+Q1 = np.percentile(rats_present_group, 25)
+Q3 = np.percentile(rats_present_group, 75)
+# Calculate IQR
+IQR = Q3 - Q1
+# Calculate the 1.5 * IQR factor
+iqr_factor = 1.5 * IQR
+# Calculate lower and upper bounds
+lower_bound = max(0, Q1 - iqr_factor)
+upper_bound = Q3 + iqr_factor
+print("IQR: ", IQR, iqr_factor, lower_bound, upper_bound)
 
-rats_present_iqr = percentile75th - percentile25th
-
-a_val = 1.5 * rats_present_iqr
-print(percentile25th, "75th ", percentile75th, rats_present_iqr, a_val)
-aQ1 = percentile25th - a_val 
-aQ3 = percentile75th + a_val
-
-print("Q1: ", aQ1, " Q3: ", aQ3)
-
-
+filtered = rats_present_group[rats_present_group <= upper_bound]
 #TODO histogram for present only
 max_val_present = rats_present_group.max()
 min_val_present = rats_present_group.min()
@@ -46,15 +46,10 @@ the_range_present = max_val_present - min_val_present
 bin_width = 5
 bin_count_present= int(the_range_present/bin_width)
 
-max_val = rats_absent_group.max()
-min_val = rats_absent_group.min()
-the_range = max_val - min_val
-bin_count= int(the_range/bin_width)
-
 plt.hist(rats_present_group, bins=bin_count_present, alpha=0.6, label='Rats Present', color='red', edgecolor='black')
-plt.hist(rats_absent_group, bins=bin_count, alpha=0.6, label='Rats Absent', color='green', edgecolor='black')
+#plt.hist(rats_absent_group, bins=bin_count, alpha=0.6, label='Rats Absent', color='green', edgecolor='black')
 
-plt.title('Hesitation Time Based on Rat Presence')
+plt.title('Bat Hesitation Time Based on Rat Presence')
 plt.xlabel('Time from Landing to Food (seconds)')
 plt.ylabel('Frequency')
 plt.show()
