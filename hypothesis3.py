@@ -1,34 +1,58 @@
 import pandas as pd
 from scipy.stats import ttest_ind
 import matplotlib.pyplot as plt
+import numpy as np
 
 df = pd.read_csv('cleaned_dataset1.csv')
 
-avoidant_bat = df[df['risk'] == 0]
-risky_bat = df[df['risk'] == 1]
+median_time = df['seconds_after_rat_arrival'].median()
+df['group'] = df['seconds_after_rat_arrival'] < median_time
+early_group = df.loc[df['group'], 'bat_landing_to_food']
+late_group = df.loc[~df['group'], 'bat_landing_to_food']
 
-reward_risky = risky_bat['reward']
-reward_avoidant = avoidant_bat['reward']
+print("Early: ", early_group.describe())
+print("Late: ", late_group.describe())
 
-mean_risky = reward_risky.mean()
-median_risky = reward_risky.median()
-standard_deviation_risky = reward_risky.std(ddof=1)
+mean_early = early_group.mean()
+median_early = early_group.median()
+standard_deviation_early = early_group.std(ddof=1)
 
-mean_avoidant = reward_avoidant.mean()
-median_avoidant = reward_avoidant.median()
-standard_deviation_avoidant = reward_avoidant.std(ddof=1)
+mean_late = late_group.mean()
+median_late = late_group.median()
+standard_deviation_late = late_group.std(ddof=1)
 
-percent_rewarded_risky = (reward_risky / len(risky_bat)) * 100
-percent_rewarded_avoidant = (reward_avoidant / len(avoidant_bat)) * 100
-print("Risky bats rewarded: ", reward_risky.value_counts(), "\nTotal length: ", len(risky_bat), "\nAvoidant bats rewarded: ", reward_avoidant.value_counts(), "\nTotal length: ", len(avoidant_bat))
 
-# Plot
-labels = ['Risky Bats', 'Avoidant Bats']
-counts = [reward_risky.sum(), reward_avoidant.sum()]
-colors = ['red', 'green']
+# IQR (detecting outliers?) #TODO late group IQR
+Q1 = np.percentile(early_group, 25)
+Q3 = np.percentile(early_group, 75)
 
-plt.bar(labels, counts, color=colors, edgecolor='black')
-plt.title('Number of Rewarded Bats (Red=Risky Green=Avoidance)')
+IQR = Q3 - Q1
+
+a_val = 1.5 * IQR
+print(Q1, "75th ", Q3, IQR, a_val)
+lower_bound = Q1 - a_val 
+upper_bound = Q3 + a_val
+
+print(lower_bound, upper_bound)
+
+filtered = early_group[early_group <= upper_bound]
+
+#histograms
+max_val_early = early_group.max()
+min_val_early = early_group.min()
+the_range_early = max_val_early - min_val_early
+bin_width = 5
+bin_count_early= int(the_range_early/bin_width)
+
+max_val = late_group.max()
+min_val = late_group.min()
+the_range_late = max_val - min_val
+bin_count= int(the_range_late/bin_width)
+
+plt.hist(early_group, bins=bin_count_early, alpha=0.6, label='Early Arrival Bats', color='red', edgecolor='black')
+plt.hist(late_group, bins=bin_count, alpha=0.6, label='Late Arrival Bats', color='green', edgecolor='black')
+plt.title('Bat Hesitation Time Based on Rat Arrival (Early=Red Late=Green)')
+plt.xlabel('Time (seconds)')
 plt.ylabel('Frequency')
 plt.show()
 
