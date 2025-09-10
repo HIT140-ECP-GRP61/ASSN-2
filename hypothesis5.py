@@ -1,32 +1,58 @@
 import pandas as pd
 from scipy.stats import ttest_ind
 import matplotlib.pyplot as plt
+import numpy as np
 
 df = pd.read_csv('cleaned_dataset2.csv')
 
 median = df['rat_minutes'].median()
-print(median)
+
 df['rat_present'] = df['rat_minutes'] > median
 print(df['rat_present'].value_counts())
 
 rat_present = df.loc[df['rat_present'], 'bat_landing_number']
 rat_absent = df.loc[~df['rat_present'], 'bat_landing_number']
-print("presence: ", rat_present.mean())
-print("absence: ", rat_absent.mean()) # more traffic when less rats
 
 mean_present = rat_present.mean()
-median_present = rat_present.median()
+median_present = rat_present.median() # Skewed data, use median
 present_standard_deviation = rat_present.std(ddof=1)
 
 mean_absent = rat_present.mean()
-median_absent = rat_absent.median()
+median_absent = rat_absent.median() # Skewed data, use median
 absent_standard_deviation = rat_absent.std(ddof=1)
 
+print("Rats Present: ", rat_present.describe(), median_present, "\nRats Absent: ", rat_absent.describe(), median_absent)
 
-#IQR for present and absent
+#IQR for present and absent (median)
+Q1 = np.percentile(rat_present, 25)
+Q3 = np.percentile(rat_present, 75)
 
+IQRp = Q3 - Q1
 
-#TODO histograms
+a_val = 1.5 * IQRp
+lower_bound = Q1 - a_val 
+upper_bound = Q3 + a_val
+
+# 83.5 upper bound
+print("Q1: ", lower_bound, " Q3: ", upper_bound)
+
+absent_Q1 = np.percentile(rat_absent, 25)
+absent_Q3 = np.percentile(rat_absent, 75)
+
+rats_absent_iqr = absent_Q3 - absent_Q1
+
+a_val = 1.5 * rats_absent_iqr
+lower_bounda = absent_Q1 - a_val 
+upper_bounda = absent_Q3 + a_val
+
+# 107.0 upper bound
+print("Q1: ", lower_bounda, " Q3: ", upper_bounda)
+
+# Remove outliers and view data
+cleaned_present = rat_present[(rat_present <= upper_bound) & (rat_present >= lower_bound)]
+cleaned_absent = rat_absent[(rat_absent <= upper_bounda) & (rat_absent >= lower_bounda)]
+
+# histograms
 max_val_present = rat_present.max()
 min_val_present = rat_present.min()
 the_range_present = max_val_present - min_val_present
@@ -38,12 +64,13 @@ min_val = rat_absent.min()
 the_range = max_val - min_val
 bin_count= int(the_range/bin_width)
 
-plt.hist(rat_present, bins=bin_count_present, alpha=0.6, label='Risky Reward Bats', color='red', edgecolor='black')
-plt.hist(rat_absent, bins=bin_count, alpha=0.6, label='Avoidant Reward Bats', color='green', edgecolor='black')
-plt.title('Bat Presence for High and Low Rat Presence')
-plt.xlabel('Rat Presence')
-plt.ylabel('Bat Frequency')
+plt.hist(rat_present, bins=bin_count_present, alpha=0.6, color='red', edgecolor='black')
+plt.hist(rat_absent, bins=bin_count, alpha=0.6, color='green', edgecolor='black')
+plt.title('Bat Landings for High and Low Rat Presence (Red=Present Green=Absent)')
+plt.xlabel('Bat Landing Number')
+plt.ylabel('Frequency')
 plt.show()
+
 
 '''
 Hypothesis 5: Rat Presence Reduces Bat Traffic<br />
