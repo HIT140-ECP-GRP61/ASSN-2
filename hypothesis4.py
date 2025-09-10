@@ -10,9 +10,6 @@ risky_bat = df[df['risk'] == 1]
 reward_risky = risky_bat['reward']
 reward_avoidant = avoidant_bat['reward']
 
-# 4x higher reward rate for avoidant bats
-print(reward_risky.value_counts(), reward_avoidant.value_counts())
-
 mean_risky = reward_risky.mean()
 median_risky = reward_risky.median()
 standard_deviation_risky = reward_risky.std(ddof=1)
@@ -21,11 +18,17 @@ mean_avoidant = reward_avoidant.mean()
 median_avoidant = reward_avoidant.median()
 standard_deviation_avoidant = reward_avoidant.std(ddof=1)
 
-#TODO proportion?
-plt.hist(reward_risky, bins=1, alpha=0.6, label='Risky Reward Bats', color='red', edgecolor='black')
-plt.hist(reward_avoidant, bins=1, alpha=0.6, label='Avoidant Reward Bats', color='green', edgecolor='black')
-plt.title('Foraging Reward For Risky and Avoidant Bats')
-plt.xlabel('Reward')
+percent_rewarded_risky = (reward_risky / len(risky_bat)) * 100
+percent_rewarded_avoidant = (reward_avoidant / len(avoidant_bat)) * 100
+print("Risky bats rewarded: ", reward_risky.value_counts(), "\nTotal length: ", len(risky_bat), "\nAvoidant bats rewarded: ", reward_avoidant.value_counts(), "\nTotal length: ", len(avoidant_bat))
+
+# Plot
+labels = ['Risky Bats', 'Avoidant Bats']
+counts = [reward_risky.sum(), reward_avoidant.sum()]
+colors = ['red', 'green']
+
+plt.bar(labels, counts, color=colors, edgecolor='black')
+plt.title('Number of Rewarded Bats (Red=Risky Green=Avoidance)')
 plt.ylabel('Frequency')
 plt.show()
 
